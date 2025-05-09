@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  locationsearch-api:
+    build:
+      context: .
+      dockerfile: locationsearch-api/Dockerfile
+    container_name: locationsearch-api
+    ports:
+      - "8081:8081"
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - MYSQL_HOST=mysql
+      - MYSQL_USERNAME=appuser
+      - MYSQL_PASSWORD=appuser
+      - KAKAO_TOKEN=${KAKAO_TOKEN}
+      - NAVER_CLIENT_ID=${NAVER_CLIENT_ID}
+      - NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}
+    depends_on:
+      - rabbitmq
+      - mysql
+    networks:
+      - app-network
+
+  locationsearch-consumer:
+    build:
+      context: .
+      dockerfile: locationsearch-consumer/Dockerfile
+    container_name: locationsearch-consumer
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - MYSQL_HOST=mysql
+      - MYSQL_USERNAME=appuser
+      - MYSQL_PASSWORD=appuser
+    depends_on:
+      - rabbitmq
+      - mysql
+    networks:
+      - app-network
+
+  locationsearch-batch:
+    build:
+      context: .
+      dockerfile: locationsearch-batch/Dockerfile
+    container_name: locationsearch-batch
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USERNAME=appuser
+      - MYSQL_PASSWORD=appuser
+    depends_on:
+      - rabbitmq
+      - mysql
+    networks:
+      - app-network
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: locationsearchsvc
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: appuser
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge

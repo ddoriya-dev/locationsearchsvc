@@ -1,0 +1,8 @@
+external:
+  kakao:
+    url: https://dapi.kakao.com/v2/local/search/keyword.json
+    token: token
+  naver:
+    url: https://openapi.naver.com/v1/search/local.json
+    client-id: clientid
+    client-secret: clientsecret

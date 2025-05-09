@@ -1,0 +1,32 @@
+server:
+  port: 8081
+
+spring:
+  r2dbc:
+    url: ${MYSQL_HOST:r2dbc:mysql://127.0.0.1:3306/locationsearchsvc?autoReconnect=true&useSSL=false}
+    username: ${MYSQL_USERNAME:appuser}
+    password: ${MYSQL_PASSWORD:appuser}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
+rabbitmq:
+  queue: location-queue
+  exchange: location-exchange
+  routing-key: location.routing
+
+logging:
+  level:
+    org.springframework: DEBUG
+    org.hibernate.SQL: DEBUG
+
+external:
+  kakao:
+    url: https://dapi.kakao.com/v2/local/search/keyword.json
+    token: ${KAKAO_TOKEN:KAKAO_TOKEN}
+  naver:
+    url: https://openapi.naver.com/v1/search/local.json
+    client-id: ${NAVER_CLIENT_ID:NAVER_CLIENT_ID}
+    client-secret: ${NAVER_CLIENT_SECRET:NAVER_CLIENT_SECRET}
