@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 @Component
 class BatchScheduler(
     private val placeDataRawRepository: PlaceDataRawRepository,
-    private val placeDataStatRepository: PlaceDataStatRepository
+    private val placeDataStatRepository: PlaceDataStatRepository,
 ) {
     val log = LoggerFactory.getLogger(BatchScheduler::class.java)
 

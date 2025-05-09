@@ -23,7 +23,7 @@ class PlaceController (
         return ResponseEntity(placeResponse, HttpStatus.OK)
     }
 
-    @GetMapping("/place/keyword-rank")
+    @GetMapping("/place/keyword/rank")
     suspend fun getKeywordRank(): ResponseEntity<PlaceKeywordRankResponse> {
         val placeResponse = placeService.getKeywordRank()
         return ResponseEntity(placeResponse, HttpStatus.OK)

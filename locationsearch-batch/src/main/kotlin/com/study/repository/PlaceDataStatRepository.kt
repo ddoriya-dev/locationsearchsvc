@@ -16,7 +16,7 @@ interface PlaceDataStatRepository : JpaRepository<PlaceDataStat, Long> {
         INSERT INTO place_data_stat (keyword, count)
         VALUES (:keyword, :count)
         ON DUPLICATE KEY UPDATE
-            count = :count
+            count = count + :count
     """, nativeQuery = true
     )
     fun upsert(

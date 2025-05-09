@@ -1,5 +1,4 @@
 plugins {
-    id("org.jlleitschuh.gradle.ktlint")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("jvm")
@@ -26,5 +25,5 @@ tasks.jar {
 }
 
 tasks.bootJar {
-    mainClass.set("com.study.LocationSearchBatchApplicationkt")
+    mainClass.set("com.study.LocationSearchBatchApplicationKt")
 }

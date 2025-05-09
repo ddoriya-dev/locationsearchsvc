@@ -10,11 +10,11 @@ COPY locationsearch-api/src /app/locationsearch-api/src
 # 의존성 다운로드
 RUN ./gradlew :locationsearch-api:dependencies --no-daemon
 # 특정 모듈 빌드
-RUN ./gradlew :locationsearch-api:clean :locationsearch-api:bootJar --no-daemon
+RUN ./gradlew :locationsearch-api:bootJar --no-daemon
 
 # 실행 단계
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY --from=builder /app/locationsearch-api/build/libs/*.jar locationsearch-api.jar
+COPY --from=builder /app/locationsearch-api/build/libs/locationsearch-api.jar locationsearch-api.jar
 EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "locationsearch-api.jar"]

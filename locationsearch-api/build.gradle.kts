@@ -1,5 +1,4 @@
 plugins {
-    id("org.jlleitschuh.gradle.ktlint")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("jvm")
@@ -27,15 +26,6 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test:2.0.21")
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
-}
-
-tasks {
-    test {
-        useJUnitPlatform()
-    }
-    ktlint {
-        verbose.set(true)
-    }
 }
 
 tasks.jar {

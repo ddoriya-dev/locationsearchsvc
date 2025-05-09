@@ -3,7 +3,7 @@ server:
 
 spring:
   r2dbc:
-    url: ${MYSQL_HOST:r2dbc:mysql://127.0.0.1:3306/locationsearchsvc?autoReconnect=true&useSSL=false}
+    url: r2dbc:mysql://${MYSQL_HOST:mysql-db}:3306/locationsearchsvc?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
     username: ${MYSQL_USERNAME:appuser}
     password: ${MYSQL_PASSWORD:appuser}
   rabbitmq:
