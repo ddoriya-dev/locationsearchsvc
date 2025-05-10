@@ -30,7 +30,5 @@ class BatchScheduler(
         }
 
         log.debug("Updated PlaceDataStat with {} keywords at {}", keywordCounts.size, now)
-        val stats = placeDataStatRepository.findAll()
-        stats.forEach { println("  Stat: $it") }
     }
 }

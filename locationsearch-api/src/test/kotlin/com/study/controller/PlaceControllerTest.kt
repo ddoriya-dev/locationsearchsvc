@@ -1,6 +1,8 @@
 package com.study.controller
 
+import com.study.dto.PlaceKeywordRankResponse
 import com.study.dto.PlaceResponse
+import com.study.dto.PlaceStat
 import com.study.service.PlaceService
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
@@ -17,13 +19,23 @@ class PlaceControllerTest {
 
     @Test
     fun `getPlaces should return PlaceResponse with OK status`() = runBlocking {
-        // Given
         val keyword = "커피"
         val expectedResponse = PlaceResponse(keyword, listOf())
         whenever(placeService.getPlaces(keyword)).thenReturn(expectedResponse)
 
-        // When
         val result: ResponseEntity<PlaceResponse> = controller.getPlaces(keyword)
+
+        assertEquals(HttpStatus.OK, result.statusCode)
+        assertEquals(expectedResponse, result.body)
+    }
+
+    @Test
+    fun `getKeywordRank should return PlaceResponse with OK status`() = runBlocking {
+        val expectedResponse = PlaceKeywordRankResponse(listOf(PlaceStat("커피", 1)))
+        whenever(placeService.getKeywordRank()).thenReturn(expectedResponse)
+
+        // When
+        val result: ResponseEntity<PlaceKeywordRankResponse> = controller.getKeywordRank()
 
         // Then
         assertEquals(HttpStatus.OK, result.statusCode)

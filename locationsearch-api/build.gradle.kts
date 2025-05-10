@@ -26,6 +26,7 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test:2.0.21")
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
+    testImplementation("io.mockk:mockk:1.13.12")
 }
 
 tasks.jar {
