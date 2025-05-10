@@ -5,10 +5,12 @@
 1) 장소검색
 2) 검색키워드목록
 
+![img.png](img.png)
 스펙
-- Kotlin, Spring Boot v3.2.4
-- WebFlux, r2jdbc, jpa, RabbitMQ, MySQL
+- Kotlin, java17, Spring Boot v3.2.4
+- WebFlux, r2jdbc, jpa, RabbitMQ, MySQL8
 
+## 모듈구성
 ### locationsearch-api
 장소 검색 서비스 API
 ```
@@ -16,11 +18,50 @@ GET /place
 외부 API 호출을 하여 장소 검색 결과를 반환
 
 curl --location 'http://127.0.0.1:8081/place?q=%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4%EA%B0%95%EB%82%A8%EC%A0%90'
+{
+    "keyword": "스타벅스강남점",
+    "places": [
+        {
+            "title": "스타벅스뉴코아강남점"
+        },
+        {
+            "title": "스타벅스압구정역점"
+        },
+        {
+            "title": "스타벅스코엑스몰점"
+        },
+        {
+            "title": "스타벅스강남r점"
+        },
+        {
+            "title": "스타벅스대치점"
+        },
+        {
+            "title": "스타벅스압구정점"
+        }
+    ]
+}
 
 GET /place/keyword/rank
 키워드 검색에 따른 검색어 랭킹을 반환
 
 curl --location 'http://127.0.0.1:8081/place/keyword/rank'
+{
+    "placeStats": [
+        {
+            "keyword": "coffee",
+            "count": 6
+        },
+        {
+            "keyword": "스타벅스강남점",
+            "count": 5
+        },
+        {
+            "keyword": "하나은행",
+            "count": 3
+        }
+    ]
+}
 ```
 
 
