@@ -14,6 +14,8 @@
 ### locationsearch-api
 장소 검색 서비스 API
 ```
+동시성을 위해 webflux를 사용하여 비동기적으로 외부 API 호출
+
 GET /place
 외부 API 호출을 하여 장소 검색 결과를 반환
 
@@ -77,6 +79,8 @@ curl --location 'http://127.0.0.1:8081/place/keyword/rank'
 ### locaationsearch-conusumer
 MQ -> DB적재
 ```
+데이터 유실을 방지하기 위해 RabbitMQ를 사용하여 DB에 적재
+
 locationsearch-api 에서 발생한 이벤트를 RabbitMQ에 전송
 장소 검색에 발생된 이벤트 키워드를 DB에 적재
 현재 MySQL에 적재 되어있지만 추후 대용량으로 진행시 nosql로 변경 예정
